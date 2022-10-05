@@ -1,15 +1,20 @@
 import express from "express";
 import bodyParser from "body-parser";
 import { AdminRoute, VendorRoutes } from "./routes";
-import mongoose from 'mongoose';
 import { MONGO_URI } from "./config";
+const mongoose = require("mongoose");
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}))
 app.use('/admin', AdminRoute);
 app.use('/vendor', VendorRoutes);
-mongoose.connect(MONGO_URI).then((res) => console.log(res)).catch((err) => console.log(err))
+
+    
+mongoose.connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
 
 app.listen(8000, () => {
     console.clear();

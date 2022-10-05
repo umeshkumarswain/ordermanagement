@@ -1,1 +1,1 @@
-export const MONGO_URI = 'mongodb+srv://foodoreder_dev:cyEx46GqjTb9crJC@learning.o3p0awt.mongodb.net/?retryWrites=true&w=majority'
+export const MONGO_URI = "mongodb+srv://foodoreder_dev:QQzA1gXSn2YnO7qy@learning.o3p0awt.mongodb.net/?retryWrites=true&w=majority";
