@@ -1,4 +1,4 @@
-import { AuthPayload } from "../dto/auto.dto";
+import { AuthPayload } from "../dto/auth.dto";
 import { Request,Response,NextFunction} from 'express';
 import { ValidateSignature } from "../utility";
 
@@ -10,7 +10,7 @@ declare global{
     }
 }
 
-export const Authenticate =async (req:Request,res:Response,next:NextFunction) => {
+export const Authenticate = async (req:Request,res:Response,next:NextFunction) => {
     const validate = await ValidateSignature(req);
     if (validate) {
         next();

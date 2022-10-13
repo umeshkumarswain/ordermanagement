@@ -1,5 +1,5 @@
-import express, { request, response, NextFunction } from 'express';
-import { Addfood, getVendorProfile, updateVendorProfile, updateVendorService, vendorLogin } from '../controllers';
+import express from 'express';
+import { Addfood, GetFoods, getVendorProfile, updateVendorProfile, updateVendorService, vendorLogin } from '../controllers';
 import { Authenticate } from '../middlewares';
 
 
@@ -7,13 +7,13 @@ const router = express.Router();
 
 router.post('/login', vendorLogin)
 
-
-router.get('/profile',Authenticate, getVendorProfile)
-router.post('/profile',Authenticate, updateVendorProfile)
-router.post('/service',Authenticate, updateVendorService)
+router.use(Authenticate);
+router.get('/profile', getVendorProfile)
+router.patch('/profile', updateVendorProfile)
+router.post('/service', updateVendorService)
 
 router.post('/food',Addfood)
-router.post('/foods')
+router.post('/foods',GetFoods)
 
 
 export { router as VendorRoutes };
