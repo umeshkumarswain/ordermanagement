@@ -25,7 +25,15 @@ export const CreateVendor = async (req: Request, res: Response, next: NextFuncti
     const userPassword = await GeneratePassword(password, salt);
 
     const createdVendor = await vendor.create({
-        name: name, address: address, pincode: pincode, foodType: foodType, email: email, password: userPassword, ownerName: ownerName, phone: phone, rating: 0, salt: salt, serviceAvailable: false, coverImage: []
+        name: name, address: address, 
+        pincode: pincode, foodType: 
+        foodType, email: email, 
+        password: userPassword, 
+        ownerName: ownerName, phone: phone, 
+        rating: 0, salt: salt, 
+        serviceAvailable: false, 
+        coverImage: [],
+        foods:[]
     });
 
     return res.json(createdVendor);
