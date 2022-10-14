@@ -73,6 +73,8 @@ export const Addfood = async (req: Request, res: Response, next: NextFunction) =
        const {name,description,category,foodType,readyTime,price} = <CreateFoodInputs> req.body;
        const vendor =await findVendor(user._id);
         if(vendor != null){
+            const files = req.files as [Express.Multer.File];
+            const images = files.map((file:Express.Multer.File)=> file.filename);
             const createdFood = await food.create({
                 vendorId: vendor._id,
                 name:name,
@@ -81,7 +83,7 @@ export const Addfood = async (req: Request, res: Response, next: NextFunction) =
                 foodType:foodType,
                 readyTime:readyTime,
                 price:price,
-                images:['mock.jpg'],
+                images:images,
                 rating:0
             });
             vendor.foods.push(createdFood);
@@ -102,4 +104,20 @@ export const GetFoods = async (req: Request, res: Response, next: NextFunction) 
       }
     }
     return res.json({ "message": "Food information not found." })
+}
+
+export const updateVendorCoverImage = async (req: Request, res: Response, next: NextFunction) => {
+    const user = req.user; 
+    if (user) {
+       const vendor =await findVendor(user._id);
+        if(vendor != null){
+            const files = req.files as [Express.Multer.File];
+            const images = files.map((file:Express.Multer.File)=> file.filename);
+            vendor.coverImage.push(...images);
+            const result = await vendor.save();
+            return res.json(result);
+        }
+
+    }
+    return res.json({ "message": "Something went wrong with add food." })
 }
